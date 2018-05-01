@@ -67,7 +67,7 @@ public class AdminJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("List of All available items");
+        jLabel1.setText("List of All available cars");
 
         jLabel2.setText("List of all orders of the month");
 
