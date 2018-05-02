@@ -1,5 +1,7 @@
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +26,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AddJFrame extends javax.swing.JFrame {
     byte[] photo=null;
-    String filename=null;   
+    String filename=null;
+    ImageIcon imageIcon;
     /**
      * Creates new form AddJFrame
      */
@@ -191,6 +195,9 @@ public class AddJFrame extends javax.swing.JFrame {
            
            photo=bos.toByteArray();
            
+           Image ii=imageIcon.getImage();
+           BufferedImage i=ImageIO.read(new ByteArrayInputStream(photo));
+           ImageIO.write(i,"jpg",new File("C:/Users/Dell/Documents/NetBeansProjects/WebApplication1/web/resources/img/"+Reg+".jpg"));
 	   Statement st = conn.createStatement();
 	   st.executeUpdate("insert into cars(Model,Reg,Rent,Type,Availability,Image) values ('"+Name+"', '"+Reg+"','"+Price+"','"+Type+"','"+avl+"','"+photo+"')" );
            new AdminJFrame().setVisible(true);
@@ -228,7 +235,7 @@ public class AddJFrame extends javax.swing.JFrame {
         File f=chooser.getSelectedFile();
         filename=f.getAbsolutePath();
         jLabel5.setIcon(new ImageIcon(f.toString()));
-        ImageIcon imageIcon=new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(jLabel5.getWidth(),jLabel5.getHeight(), Image.SCALE_SMOOTH));
+        imageIcon=new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(jLabel5.getWidth(),jLabel5.getHeight(), Image.SCALE_SMOOTH));
         jLabel5.setIcon(imageIcon);
     }//GEN-LAST:event_jButton2ActionPerformed
 
